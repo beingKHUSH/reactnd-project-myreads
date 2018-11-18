@@ -12,19 +12,19 @@ class BookSearch extends Component {
 
   updateQuery(e) {
     const query = e.target.value;
-    this.setState({ query });
-    this.performSearch(query);
+    this.setState({ query : query.trim()})
+    this.search(query)
   }
 
-  performSearch(query) {
+  search(query) {
     if (query === '' || query === undefined){
       this.setState({ results: [] });
       return;
     }
     else {
       BooksAPI.search(query).then((books) => {
-        this.setState({ results: books });
-      });
+        this.setState({ results: books })
+      })
     }
   }
 
