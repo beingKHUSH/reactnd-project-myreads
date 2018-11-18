@@ -1,40 +1,48 @@
-import React from 'react'
+import React from 'react';
 // import * as BooksAPI from './BooksAPI'
-import './App.css'
-import BookList from './BookList'
-import * as BooksAPI from './BooksAPI'
+import './App.css';
+import { Route } from 'react-router-dom';
+import BookSearch from './BookSearch';
+import BookList from './BookList';
+import * as BooksAPI from './BooksAPI';
 
 class App extends React.Component {
   state = {
     books: [],
-    showSearchPage: false
-
   }
 
-  fetchNewBooks = () => (
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  )
+  shelfChange = (book,shelf) => {
+    BooksAPI.update(book,shelf)
+    .then(() => { this.fetchBooks(); })
+    .catch(() => { alert('Something went with the request.');})
+  };
 
-  shelfChange = (book,shelf) => (
-    BooksAPI.update(book,shelf).then(() =>
-      this.fetchNewBooks()
-    )
-  )
+  fetchBooks() {
+    BooksAPI.getAll()
+    .then(books => this.setState({ books }))
+    .catch(() => { alert('Something went with the request.');})
+  }
 
   componentDidMount() {
-    this.fetchNewBooks()
+    BooksAPI.getAll().then(books => this.setState({ books }));
   }
 
   render() {
     return (
       <div className="app">
-        <BookList onShelfChange={this.props.shelfChange} books={this.state.books} />
-
+        <Route exact path="/" render={() => (
+            <BookList shelfChange={this.shelfChange} books={this.state.books} />
+          )}
+        />
+        <Route
+          path="/search"
+          render={() => (
+            <BookSearch books={this.state.books} shelfChange={this.shelfChange} />
+          )}
+        />
       </div>
     )
   }
 }
 
-export default App
+export default App;
