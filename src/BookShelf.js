@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import Book from './Book';
+import Book from './Book'
+import PropTypes from 'prop-types'
 
 class BookShelf extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
-    onChangeShelf: PropTypes.func.isRequired
+    change_bookShelf: PropTypes.func.isRequired
   }
 
-  update_shelf = (book, shelf) => {
+  update_book = (book, shelf) => {
     this.props.onChangeShelf(book, shelf)
   }
 
@@ -19,28 +20,12 @@ class BookShelf extends Component {
         <h2 className="bookshelf-title">{this.props.title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.map((book, index) => (<Book book={book} key={index} onUpdate={(shelf) => {
-              this.update_Shelf(book, shelf)
-            }}/>))}
+            {books.map((book, index) => (
+              <Book book={book} key={index} onUpdate={(shelf) => {this.update_book(book, shelf)}}/>
+              ))
+            }
           </ol>
         </div>
-      </div>
-    )
-  }
-  render() {
-    return (
-
-      <div className="bookshelf">
-        {this.props.books.map() => (
-          <h2 className="bookshelf-title">{book.title}</h2>
-          <div className="bookshelf-books">
-            <ol className="books-grid">
-              {books.map((book, index) => (<Book book={book} key={index} onUpdate={(shelf) => {
-                this.update_book(book, shelf)
-              }}/>))}
-            </ol>
-          </div>
-        )}
       </div>
     )
   }

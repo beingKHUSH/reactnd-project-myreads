@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import Book from './Book'
+import BookShelf from './BookShelf'
 import PropTypes from 'prop-types'
 
 class BookList extends Component {
-  BookList.PropTypes = {
+  static propTypes = {
     books : PropTypes.array.isRequired,
     onShelfChange: PropTypes.func.isRequired
-  }
-  onChangeShelf = (book, shelf) => {
-    this.props.onShelfChange(book, shelf)
   }
   render() {
     const books = this.props.books
@@ -19,9 +16,9 @@ class BookList extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf books={books.filter((book) => (book.shelf === "currentlyReading"))} title="Currently Reading" onChangeShelf={this.props.onShelfChange}/>
-            <BookShelf books={books.filter((book) => (book.shelf === "read"))} title="Read" onChangeShelf={this.props.onShelfChange}/>
-            <BookShelf books={books.filter((book) => (book.shelf === "wantToRead"))} title="Want to Read" onChangeShelf={this.props.onShelfChange}/>
+            <BookShelf books={books.filter((book) => (book.shelf === "currentlyReading"))} title="Currently Reading" change_bookShelf={this.props.onShelfChange}/>
+            <BookShelf books={books.filter((book) => (book.shelf === "wantToRead"))} title="Want to Read" change_bookShelf={this.props.onShelfChange}/>
+            <BookShelf books={books.filter((book) => (book.shelf === "read"))} title="Read" change_bookShelf={this.props.onShelfChange}/>
           </div>
         </div>
       </div>
