@@ -61,8 +61,9 @@ class BookSearch extends Component {
           {message}
           <ol className="books-grid">
             {this.state.results.map((book) => (
+                book.shelf = "none",
                 this.props.books.map((b) => {
-                  (b.id === book.id)?book.shelf = b.shelf: 'none'
+                  (b.id === book.id)? book.shelf = b.shelf : ''
                 }),
                 <Book
                   book={book}
