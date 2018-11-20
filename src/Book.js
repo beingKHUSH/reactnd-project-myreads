@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 function Book(props) {
   return (
-    console.log(props.book),
     <li key={props.book.id}>
       <div className="book">
         <div className="book-top">
