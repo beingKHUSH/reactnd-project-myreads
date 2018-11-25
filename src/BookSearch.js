@@ -57,10 +57,10 @@ class BookSearch extends Component {
             (
               <ol className="books-grid">
                 {this.state.results.map((book) => (
-                    book.shelf = "none",
-                    this.props.books.map((b) => {
+                    book.shelf = "none" ,
+                    this.props.books.map((b) =>
                       (b.id === book.id)? book.shelf = b.shelf : ''
-                    }),
+                    ) ,
                     <Book key={book.id}
                       book={book}
                       shelfChange={this.props.shelfChange}
