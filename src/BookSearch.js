@@ -30,16 +30,10 @@ class BookSearch extends Component {
 
   render() {
     let message;
-    if (this.state.query === '') {
+    if (this.state.query === '' ) {
       message = (
         <h2 style={{ textAlign: 'center' }}>
           Start searching the books
-        </h2>
-      );
-    } else if (this.state.results.length === 0) {
-      message = (
-        <h2 style={{ textAlign: 'center' }}>
-          No results found. Try a different book.
         </h2>
       );
     }
@@ -59,18 +53,25 @@ class BookSearch extends Component {
         </div>
         <div className="search-books-results">
           {message}
-          <ol className="books-grid">
-            {this.state.results.map((book) => (
-                book.shelf = "none",
-                this.props.books.map((b) => {
-                  (b.id === book.id)? book.shelf = b.shelf : ''
-                }),
-                <Book
-                  book={book}
-                  shelfChange={this.props.shelfChange}
-                />
-            ))}
-          </ol>
+          {this.state.results.length != null ?
+            (
+              <ol className="books-grid">
+                {this.state.results.map((book) => (
+                    book.shelf = "none",
+                    this.props.books.map((b) => {
+                      (b.id === book.id)? book.shelf = b.shelf : ''
+                    }),
+                    <Book key={book.id}
+                      book={book}
+                      shelfChange={this.props.shelfChange}
+                    />
+                ))}
+              </ol>
+            ):
+            <h2 style={{ textAlign: 'center' }}>
+              No results found. Try a different book.
+            </h2>
+          }
         </div>
       </div>
     );
